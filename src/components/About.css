@@ -1,0 +1,36 @@
+.about-section {
+    display: flex;
+    justify-content: space-around;
+    padding: 50px;
+    margin: 0 auto;
+    max-width: 1200px;
+    border-radius: 10px;
+  }
+  
+  .about-content {
+    flex: 1;
+    margin-right: 100px;
+  }
+  
+  .about-content h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .about-content p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  .about-image {
+    flex: 1;
+    max-width: 50%;
+  }
+  
+  .about-image img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  

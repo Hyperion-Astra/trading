@@ -1,0 +1,39 @@
+.financial-banner {
+    background-color: #12291B;
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .banner-content {
+    max-width: 800px;
+  }
+  
+  .banner-heading {
+    font-size: 42px;
+    font-weight: bold;
+    color: whitesmoke;
+  }
+  
+  .banner-text {
+    font-size: 18px;
+    color: #fff;
+    margin-top: 10px;
+  }
+  
+  .banner-button {
+    background-color: #111c50;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .banner-button:hover {
+    background-color: #25316e;
+  }
+  
