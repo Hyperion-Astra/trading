@@ -1,3 +1,8 @@
+body, html {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 .hero-container {
   position: relative;
   width: 100%;
@@ -106,4 +111,34 @@
   .explore-button:hover {
     background: #502d75;
   }
-  
+  @media (max-width: 768px) {
+    .logo {
+      width: 40px; /* Reduce size for mobile */
+      height: auto;
+    }
+    .contact-button {
+      padding: 8px 16px; /* Reduce button size */
+      font-size: 16px;
+    }
+  }
+  @media (max-width: 768px) {
+    .hero-container {
+      padding: 20px;
+      justify-content: flex-start;
+    }
+
+  }
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 28px; /* Reduce size */
+    }
+    .hero-text {
+      font-size: 16px;
+    }
+  }
+  @media (max-width: 768px) {
+    .explore-button {
+      font-size: 16px;
+    }
+  }
+        
