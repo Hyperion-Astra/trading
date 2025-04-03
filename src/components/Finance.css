@@ -36,4 +36,34 @@
   .banner-button:hover {
     background-color: #25316e;
   }
+  @media (max-width: 768px) {
+    .financial-banner {
+      padding: 40px 20px; /* Reduce padding for smaller screens */
+    }
+  
+    .banner-content {
+      max-width: 90%; /* Allow more space for content */
+      text-align: center; /* Center align the text for better readability */
+    }
+  
+    .banner-heading {
+      font-size: 28px; /* Make heading smaller on mobile */
+    }
+  
+    .banner-text {
+      font-size: 16px; /* Adjust text size for readability */
+    }
+  
+    .banner-button {
+      width: 100%; /* Make the button full-width */
+      padding: 12px 0; /* Adjust padding for a more compact button */
+    }
+  }
+  @media (max-width: 768px) {
+    .banner-button {
+      padding: 15px; /* Adjust padding for mobile */
+      font-size: 14px; /* Make the font size smaller for mobile */
+    }
+  }
+    
   

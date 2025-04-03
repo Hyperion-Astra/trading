@@ -44,7 +44,7 @@ const Main = () => {
         <button className="contact-button" onClick={() => window.open("https://wa.me/2347025724225", "_blank")} style={{ cursor: "pointer" }}>Contact us</button>
       </header>
 
-      <div className="hero-content">
+      <div className="hero-content" data-aos="fade-up">
         <h2 className="hero-title">Turn Your Gift Cards into Cash or Crypto – Instantly!</h2>
         <p className="hero-text">
         With just a few clicks, swap your Amazon, Walmart, Google Play or iTunes cards and more for BTC, ETH, 

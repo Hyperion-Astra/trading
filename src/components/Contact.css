@@ -1,80 +1,144 @@
 .contact-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    max-width: 1000px;
-    margin: auto;
-    padding: 40px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1000px;
+  margin: auto;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f3f4f6, #e6eef1); /* Light background gradient */
+  border-radius: 10px; /* Rounded corners for the section */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  flex-wrap: wrap;
+}
+
+.contact-text {
+  flex: 1;
+  max-width: 40%;
+  padding-right: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #111c50;
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: 16px;
+  color: #555;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.contact-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 50%;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #111c50;
+  margin-bottom: 8px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #111c50;
+  box-shadow: 0 0 5px rgba(17, 28, 80, 0.4);
+}
+
+textarea {
+  height: 150px;
+  resize: none;
+}
+
+.tonne {
+  background-color: #111c50;
+  color: white;
+  padding: 14px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.tonne:hover {
+  background-color: #25316e;
+  transform: scale(1.05);
+}
+
+.status-message {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #4CAF50;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .contact-section {
+    flex-direction: column;
+    padding: 20px;
   }
-  
+
   .contact-text {
-    flex: 1;
-    max-width: 40%;
+    max-width: 100%;
+    margin-bottom: 20px;
   }
-  
-  h2 {
-    font-size: 22px;
-    font-weight: bold;
-    color: #111c50;
-  }
-  
-  p {
-    font-size: 16px;
-    color: #555;
-    margin-top: 10px;
-  }
-  
+
   .contact-form {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 50%;
+    max-width: 100%;
+    padding: 20px;
   }
-  
-  .input-group {
-    display: flex;
-    flex-direction: column;
+
+  .contact-text h2 {
+    font-size: 24px;
   }
-  
-  label {
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  input,
-  textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-  }
-  
-  textarea {
-    height: 100px;
-    resize: none;
-  }
-  
+
   .tonne {
-    background-color: #12291B;
-    color: white;
-    padding: 12px;
     font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
+    padding: 12px;
   }
-  
-  .tonne:hover {
-    background-color: #1c412a;
-  }
-  
-  .status-message {
-    margin-top: 10px;
+}
+
+@media (max-width: 480px) {
+  .contact-text p {
     font-size: 14px;
-    color: green;
   }
-  
+
+  .tonne {
+    font-size: 14px;
+    padding: 12px;
+  }
+}

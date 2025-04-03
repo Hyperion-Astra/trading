@@ -1,7 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
 body, html {
   overflow-x: hidden;
   width: 100%;
 }
+
+.hero-container, .header {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 
 .hero-container {
   position: relative;
@@ -13,6 +23,8 @@ body, html {
   align-items: center;
   justify-content: center;
   text-align: center;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 .hero-overlay {
   position: absolute;
@@ -29,13 +41,14 @@ body, html {
   position: relative;
   z-index: 2;
 }
+
   
   /* Header */
   .header {
     position: fixed;
     top: 0;
     left: 0;
-    width: 98%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -80,7 +93,9 @@ body, html {
   
 /* HHero CContent */
   .hero-content {
-    max-width: 600px;
+    max-width: 90%; /* Allows it to scale properly */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
     color: rgb(245, 239, 239);
   }
   
@@ -121,13 +136,7 @@ body, html {
       font-size: 16px;
     }
   }
-  @media (max-width: 768px) {
-    .hero-container {
-      padding: 20px;
-      justify-content: flex-start;
-    }
 
-  }
   @media (max-width: 768px) {
     .hero-title {
       font-size: 28px; /* Reduce size */

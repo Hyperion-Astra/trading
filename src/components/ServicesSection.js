@@ -44,7 +44,7 @@ const ServicesSection = () => {
   };
 
   return (
-    <section className="services-section" id="services"> 
+    <section className="services-section" id="services" data-aos="fade-up"> 
       <h2 className="section-title">Trade Securely</h2>
       <div className="services-grid">
         {services.map((service, index) => (

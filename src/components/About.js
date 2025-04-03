@@ -18,8 +18,8 @@ const About = () => {
         traditional gifting with the future of finance.
         </p>
       </div>
-      <div className="about-image">
-        <img src={londonImage} alt="Gift card" />
+      <div className="about-image" data-aos="fade-left">
+        <img src={londonImage} alt="Gift card" loading="lazy" />
       </div>
     </section>
   );

@@ -1,4 +1,8 @@
 .services-section {
+  overflow-x: hidden;
+}
+
+.services-section {
     max-width: 1200px;
     margin: 0 auto;
     padding: 60px 20px;
@@ -59,4 +63,29 @@
   .more-info-btn:hover {
     background-color: #1a3d27;
   }
+  @media (max-width: 768px) {
+    .services-grid {
+      grid-template-columns: 1fr; /* Stack items in one column */
+      gap: 20px; /* Reduce gap for better spacing */
+    }
+  }
+  @media (max-width: 768px) {
+    .section-title {
+      font-size: 14px; /* Slightly smaller */
+      text-align: center;
+    }
+  
+    .service-card h3 {
+      font-size: 16px;
+    }
+  
+    .service-card p {
+      font-size: 13px;
+    }
+  
+    .more-info-btn {
+      width: 100%; /* Make buttons full-width for better tapping */
+    }
+  }
+    
   

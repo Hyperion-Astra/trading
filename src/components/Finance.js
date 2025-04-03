@@ -13,7 +13,7 @@ const Finance = () => {
   };
   return (
     <section className="financial-banner">
-      <div className="banner-content">
+      <div className="banner-content" data-aos="fade-right">
         <h1 className="banner-heading">Who We Are: Your Trusted Trading Partner</h1>
         <p className="banner-text">
         At GeniSwap , we’re revolutionizing how you unlock value from gift cards and crypto. 
@@ -21,7 +21,7 @@ const Finance = () => {
         don’t need or a crypto stash you want to flip, we’ve got you covered. With cutting-edge security, 
         good market rates, and 24/7 support, we’re here to turn your assets into what you 
         want—effortlessly. Trade with confidence—choose GeniSwap Easy Trade today!</p>
-        <button className="banner-button" onClick={() => scrollToSection("services")}>Start Trading</button>
+        <button className="banner-button" onClick={() => window.open("https://wa.me/2347025724225", "_blank")}>Start Trading</button>
       </div>
     </section>
   );

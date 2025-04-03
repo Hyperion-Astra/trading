@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Contact.css"; 
+import "./Contact.css";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -7,15 +7,31 @@ const Contact = () => {
     email: "",
     message: "",
   });
-
   const [status, setStatus] = useState("");
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+  });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    // Real-time validation
+    if (name === "email" && !/\S+@\S+\.\S+/.test(value)) {
+      setErrors({ ...errors, email: "Invalid email format" });
+    } else {
+      setErrors({ ...errors, email: "" });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.message) {
+      setStatus("Please fill out all fields.");
+      return;
+    }
 
     const formspreeEndpoint = "https://formspree.io/f/mzzeabab"; // Replace with actual Formspree ID
 
@@ -39,9 +55,11 @@ const Contact = () => {
     <div className="contact-section" id="contact">
       <div className="contact-text">
         <h2>Got a Gift Card? Get Crypto or Cash Now!</h2>
-        <p>Why let gift cards gather dust? With GeniSwap Easy Trade, swap them for Bitcoin, Ethereum, 
-          or cash in under 10 minutes. Best rates, zero hassle—start trading today and see why we’re 
-          the go-to choice.</p>
+        <p>
+          Why let gift cards gather dust? With GeniSwap Easy Trade, swap them
+          for Bitcoin, Ethereum, or cash in under 10 minutes. Best rates, zero
+          hassle—start trading today and see why we’re the go-to choice.
+        </p>
       </div>
 
       <form onSubmit={handleSubmit} className="contact-form">
@@ -65,6 +83,7 @@ const Contact = () => {
             onChange={handleChange}
             required
           />
+          {errors.email && <span className="error">{errors.email}</span>}
         </div>
 
         <div className="input-group">
