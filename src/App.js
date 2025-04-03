@@ -9,7 +9,6 @@ import Footer from './components/Footer';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import CryptoPrices from './components/CrytoPrices';
-import PricingCalculator from './components/PricingCalculator';
 
 AOS.init();
 
@@ -19,7 +18,7 @@ function App() {
       <Main />
       <About />
       <CryptoPrices />
-      <PricingCalculator />
+
       <ServicesSection />
       <Finance />
       <Contact />
