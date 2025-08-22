@@ -58,7 +58,7 @@ const Contact = () => {
         <p>
           Why let gift cards gather dust? With GeniSwap Easy Trade, swap them
           for Bitcoin, Ethereum, or cash in under 10 minutes. Best rates, zero
-          hassle—start trading today and see why we’re the go-to choice.
+          hassle. Start trading today and see why we are the go-to choice.
         </p>
       </div>
 

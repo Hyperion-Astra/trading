@@ -48,7 +48,7 @@ const Main = () => {
         <h2 className="hero-title">Turn Your Gift Cards into Cash or Crypto – Instantly!</h2>
         <p className="hero-text">
         With just a few clicks, swap your Amazon, Walmart, Google Play or iTunes cards and more for BTC, ETH, 
-        USDT, or Naira—securely and at top rates.
+        USDT, or Naira securely and at top rates.
         </p>
         <button className="explore-button" onClick={() => window.open("https://wa.me/2347025724225", "_blank")} style={{ cursor: "pointer"}}>Start Trading</button>
       </div>
