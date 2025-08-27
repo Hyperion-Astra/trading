@@ -1,69 +1,60 @@
-.financial-banner {
-    background-color: #12291B;
-    padding: 60px 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.testimonials {
+  padding: 60px 20px;
+  background: #f9f9f9;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.testimonials h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #1e3c72;
+}
+
+.carousel-wrapper {
+  overflow: hidden;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.carousel-container {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+}
+
+.review {
+  background: #fff;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  margin: 0 10px;
+  text-align: center;
+}
+
+.review p {
+  font-size: 1rem;
+  font-style: italic;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.review h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e3c72;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .review {
+    margin: 0 8px;
   }
-  
-  .banner-content {
-    max-width: 800px;
+}
+
+@media (max-width: 768px) {
+  .review {
+    margin: 0 5px;
   }
-  
-  .banner-heading {
-    font-size: 42px;
-    font-weight: bold;
-    color: whitesmoke;
-  }
-  
-  .banner-text {
-    font-size: 18px;
-    color: #fff;
-    margin-top: 10px;
-  }
-  
-  .banner-button {
-    background-color: #111c50;
-    color: white;
-    padding: 12px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-  }
-  
-  .banner-button:hover {
-    background-color: #25316e;
-  }
-  @media (max-width: 768px) {
-    .financial-banner {
-      padding: 40px 20px; /* Reduce padding for smaller screens */
-    }
-  
-    .banner-content {
-      max-width: 90%; /* Allow more space for content */
-      text-align: center; /* Center align the text for better readability */
-    }
-  
-    .banner-heading {
-      font-size: 28px; /* Make heading smaller on mobile */
-    }
-  
-    .banner-text {
-      font-size: 16px; /* Adjust text size for readability */
-    }
-  
-    .banner-button {
-      width: 100%; /* Make the button full-width */
-      padding: 12px 0; /* Adjust padding for a more compact button */
-    }
-  }
-  @media (max-width: 768px) {
-    .banner-button {
-      padding: 15px; /* Adjust padding for mobile */
-      font-size: 14px; /* Make the font size smaller for mobile */
-    }
-  }
-    
-  
+}

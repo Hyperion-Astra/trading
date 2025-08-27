@@ -1,0 +1,59 @@
+.crypto-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  width: 250px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+.crypto-card:hover {
+  transform: translateY(-5px);
+}
+
+.crypto-card h2 {
+  margin-bottom: 0.5rem;
+  color: #1e3a8a;
+}
+
+.crypto-card p {
+  margin: 0.25rem 0;
+}
+
+.discount {
+  font-weight: bold;
+  color: #2563eb;
+}
+
+.exchange-btn {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.exchange-btn:hover {
+  background: #1d4ed8;
+}
+
+/* 📱 Mobile responsiveness */
+@media (max-width: 480px) {
+  .crypto-card {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .crypto-card h2 {
+    font-size: 1.2rem;
+  }
+
+  .exchange-btn {
+    width: 100%;
+  }
+}

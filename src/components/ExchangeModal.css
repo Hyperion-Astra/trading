@@ -1,0 +1,264 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.payment-info {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #f0f8ff;
+  border-radius: 8px;
+  color: #1e3a8a;
+}
+
+.close-btn {
+  background: #1e3a8a;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.close-btn:hover {
+  background: #163075;
+}
+
+/* 📱 Mobile responsiveness */
+@media (max-width: 480px) {
+  .modal {
+    padding: 1.5rem 1rem;
+  }
+
+  .modal h2 {
+    font-size: 1.3rem;
+  }
+
+  .modal p {
+    font-size: 0.9rem;
+  }
+
+  .close-btn {
+    width: 100%;
+  }
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 999;
+}
+
+.modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  position: relative;
+}
+
+.modal h2 {
+  margin-bottom: 1rem;
+  color: #1e293b;
+}
+
+.modal form label {
+  display: block;
+  margin: 0.8rem 0;
+  font-weight: 500;
+  color: #334155;
+}
+
+.modal input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  margin-top: 0.3rem;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+}
+
+.payment-info {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #f0f8ff;
+  border-radius: 8px;
+  color: #1e3a8a;
+}
+
+.wallet {
+  font-family: monospace;
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+  word-break: break-all;
+}
+
+.confirm-btn {
+  margin-top: 1rem;
+  background: #1e293b;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.confirm-btn:hover {
+  background: #163075;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.8rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #1e293b;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .modal {
+    padding: 1.5rem 1rem;
+  }
+
+  .confirm-btn {
+    width: 100%;
+  }
+}
+.payment-info p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+  color: #1e3a8a;
+}
+
+.payment-info .wallet,
+.payment-info .contract {
+  font-family: monospace;
+  font-size: 0.85rem;
+  word-break: break-all;
+  margin-bottom: 0.5rem;
+}
+
+.payment-info svg {
+  margin-top: 0.5rem;
+  border-radius: 6px;
+}
+
+/* Inline addresses with copy buttons */
+.address-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f0f8ff;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  margin-bottom: 0.8rem;
+  font-family: monospace;
+  word-break: break-all;
+}
+
+.address-row button {
+  background: #1e293b;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.address-row button:hover {
+  background: #163075;
+}
+
+.barcode-container {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+select {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+select option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+select option svg {
+  width: 16px;
+  height: 16px;
+}
+.network-select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.network-icon svg {
+  width: 18px;
+  height: 18px;
+}
+.barcode-container {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.barcode-container img {
+  width: 100%;
+  max-width: 300px; /* controls the width of the barcode block */
+  height: auto;      /* maintain aspect ratio */
+  object-fit: contain;
+  border: 2px solid #1e293b; /* gives it a block/box look */
+  border-radius: 6px;
+  background: #f0f8ff;        /* light background like old barcode */
+  padding: 8px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .barcode-container img {
+    max-width: 200px;  /* smaller on mobile */
+    padding: 6px;
+  }
+}

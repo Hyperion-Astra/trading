@@ -1,0 +1,143 @@
+/* ExchangeTable.css */
+
+/* Card container */
+.exchange-table-card {
+  background: #f9fafb;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  max-width: 500px;
+  margin: 2rem auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card title */
+.exchange-table-card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+/* Form labels and inputs */
+.exchange-table-card label {
+  display: block;
+  margin: 1rem 0 0.5rem;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.exchange-table-card select,
+.exchange-table-card input[type="number"] {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.exchange-table-card select:focus,
+.exchange-table-card input[type="number"]:focus {
+  border-color: #3b82f6;
+}
+
+/* USD Amount display */
+.usd-amount {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #0f172a;
+  font-size: 1.1rem;
+}
+
+/* Payment info container */
+.payment-info {
+  background: #e0f2fe;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+}
+
+/* Wallet row */
+.address-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.address-row .wallet {
+  font-family: 'Courier New', Courier, monospace;
+  word-break: break-all;
+  font-size: 0.95rem;
+  color: #1e293b;
+}
+
+/* Copy button */
+.copy-btn {
+  background: #1e293b;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+
+.copy-btn:hover {
+  background: #3b82f6;
+}
+
+/* Barcode container */
+.barcode-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.barcode-container img {
+  width: 100%;
+  max-width: 300px;
+  border: 2px solid #1e293b;
+  border-radius: 6px;
+  background: #f0f8ff;
+  padding: 8px;
+}
+
+/* Confirm button */
+.confirm-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.confirm-btn:hover {
+  background: #2563eb;
+}
+
+/* Responsive for small screens */
+@media (max-width: 600px) {
+  .exchange-table-card {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+
+  .exchange-table-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .barcode-container img {
+    max-width: 90%;
+  }
+}

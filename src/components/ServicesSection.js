@@ -1,65 +1,94 @@
-import React, { useState } from "react";
+// src/components/Services.js
+import React, { useState, useEffect } from "react";
 import "./ServicesSection.css";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
+import Modal from "./Modal";
 
-const services = [
-  {
-    "title": "Gift Card Trading Platform",
-    "description": "Easily trade your gift cards for cash or cryptocurrency with our seamless and user-friendly platform. We support a wide range of popular gift cards with instant transactions and secure processing.",
-    "moreInfo": "Our platform offers a fast and secure way to trade gift cards with real-time price evaluations. Benefit from competitive rates, instant payouts, and a hassle-free trading experience."
-  },
-  {
-    "title": "Gift Card-to-Crypto  Exchange",
-    "description": "Convert your gift cards from top brands into cryptocurrency effortlessly. Enjoy a secure and instant exchange process with minimal transaction fees.",
-    "moreInfo": "We support a variety of gift cards and offer a broad selection of cryptocurrency, making it easy to convert your digital assets into everyday spending power. Transactions are encrypted and processed instantly."
-  },
-  {
-    "title": "Secure Crypto Transactions",
-    "description": "Our platform ensures the highest level of security for all crypto transactions, utilizing blockchain technology and advanced encryption.",
-    "moreInfo": "With multi-layer security, two-factor authentication, and cold storage solutions, we prioritize the safety of your funds. Trade with confidence, knowing your assets are protected at all times."
-  },
-  {
-    "title": "Comprehensive Market Insights",
-    "description": "Stay ahead of the market with real-time data, price tracking, and in-depth analysis on crypto and gift card trading trends.",
-    "moreInfo": "Access detailed reports, historical data, and AI-driven predictions to make informed trading decisions. Our insights empower you to maximize profits and minimize risks."
-  },
-  {
-    "title": "24/7 Customer Support",
-    "description": "Get assistance anytime with our dedicated customer support team, available 24/7 to resolve your issues quickly and efficiently.",
-    "moreInfo": "Our multilingual support team is always ready to assist you with any inquiries, from technical troubleshooting to transaction clarifications. We prioritize fast response times and customer satisfaction."
-  },
-  {
-    "title": "Competitive Pricing Strategies",
-    "description": "Benefit from the best exchange rates and low fees, ensuring you get the most value for your transactions.",
-    "moreInfo": "We continuously analyze market trends to offer fair and competitive pricing. Our platform minimizes hidden fees and maximizes your earnings with transparent and dynamic pricing models."
-  },
-];
+export default function Services() {
+  const [crypto, setCrypto] = useState("BTC");
+  const [amount, setAmount] = useState("");
+  const [result, setResult] = useState(null);
+  const [prices, setPrices] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-const ServicesSection = () => {
-  const [expanded, setExpanded] = useState(Array(services.length).fill(false));
+  // Fetch live prices from CoinGecko
+  useEffect(() => {
+    const fetchPrices = async () => {
+      try {
+        const res = await fetch(
+          "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,tether,solana,binancecoin&vs_currencies=usd"
+        );
+        if (!res.ok) throw new Error("Network response was not ok");
+        const data = await res.json();
 
-  const toggleExpand = (index) => {
-    const newExpanded = [...expanded];
-    newExpanded[index] = !newExpanded[index];
-    setExpanded(newExpanded);
+        // Store prices with $15 discount (except USDT)
+        const updated = {
+          BTC: data.bitcoin.usd - 15,
+          ETH: data.ethereum.usd - 15,
+          USDT: data.tether.usd, // no discount
+          SOL: data.solana.usd - 15,
+          BNB: data.binancecoin.usd - 15,
+        };
+
+        setPrices(updated);
+      } catch (err) {
+        console.error("Failed to fetch prices:", err);
+        setError("Unable to fetch live prices. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPrices();
+  }, []);
+
+  const handleExchange = (e) => {
+    e.preventDefault();
+    if (!amount || !prices[crypto]) return;
+
+    const rate = prices[crypto];
+    setResult((amount / rate).toFixed(6));
   };
 
   return (
-    <section className="services-section" id="services" data-aos="fade-up"> 
-      <h2 className="section-title">Trade Securely</h2>
-      <div className="services-grid">
-        {services.map((service, index) => (
-          <div key={index} className="service-card">
-            <h3>{service.title}</h3>
-            <p>{service.description}</p>
-            {expanded[index] && <p className="more-info-text">{service.moreInfo}</p>}
-            <button className="more-info-btn" onClick={() => toggleExpand(index)}>
-              {expanded[index] ? "Read Less" : "Read More"}
-            </button>
-          </div>
-        ))}
-      </div>
+    <section className="exchange">
+      <h2>Exchange Crypto</h2>
+
+      {loading ? (
+        <p className="loading">Fetching live prices...</p>
+      ) : error ? (
+        <p className="error">{error}</p>
+      ) : (
+        <>
+          <form onSubmit={handleExchange}>
+            <select value={crypto} onChange={(e) => setCrypto(e.target.value)}>
+              <option value="BTC">Bitcoin (BTC)</option>
+              <option value="ETH">Ethereum (ETH)</option>
+              <option value="USDT">Tether (USDT)</option>
+              <option value="SOL">Solana (SOL)</option>
+              <option value="BNB">BNB (BNB)</option>
+            </select>
+
+            <input
+              type="number"
+              placeholder="Enter USD amount"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
+
+            <button type="submit">Exchange</button>
+          </form>
+
+          {result && (
+            <p>
+              You will receive: <strong>{result} {crypto}</strong>
+            </p>
+          )}
+        </>
+      )}
     </section>
   );
-};
-
-export default ServicesSection;
+}

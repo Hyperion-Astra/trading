@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Contact.css";
 
 const Contact = () => {
+  const sectionRef = useRef(null);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,6 +14,22 @@ const Contact = () => {
     name: "",
     email: "",
   });
+
+  // Scroll fade-in effect
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          sectionRef.current.classList.add("visible");
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => {
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
+    };
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,32 +53,35 @@ const Contact = () => {
 
     const formspreeEndpoint = "https://formspree.io/f/mzzeabab"; // Replace with actual Formspree ID
 
-    const response = await fetch(formspreeEndpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const response = await fetch(formspreeEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    if (response.ok) {
-      setStatus("Message sent successfully!");
-      setFormData({ name: "", email: "", message: "" });
-    } else {
+      if (response.ok) {
+        setStatus("Message sent successfully!");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setStatus("Something went wrong. Please try again.");
+      }
+    } catch (err) {
       setStatus("Something went wrong. Please try again.");
     }
   };
 
   return (
-    <div className="contact-section" id="contact">
-      <div className="contact-text">
-        <h2>Got a Gift Card? Get Crypto or Cash Now!</h2>
-        <p>
-          Why let gift cards gather dust? With GeniSwap Easy Trade, swap them
-          for Bitcoin, Ethereum, or cash in under 10 minutes. Best rates, zero
-          hassle. Start trading today and see why we are the go-to choice.
-        </p>
-      </div>
+    <div id="contact">
+    <div className="contact-section" id="contact" ref={sectionRef}>
+  <div className="contact-text">
+    <h2>Trade Crypto at Exclusive Discounts!</h2>
+    <p>
+      Bitcoin, Ethereum, or USDT? With Changecog,
+      you can buy popular cryptocurrencies 
+      Fast & secure – start trading today and enjoy the savings!
+    </p>
+  </div>
 
       <form onSubmit={handleSubmit} className="contact-form">
         <div className="input-group">
@@ -99,6 +120,7 @@ const Contact = () => {
         <button type="submit" className="tonne">Send Message</button>
         {status && <p className="status-message">{status}</p>}
       </form>
+    </div>
     </div>
   );
 };

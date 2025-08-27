@@ -1,30 +1,65 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Finance.css";
 
-const Finance = () => {
-  const scrollToSection = (id) => {
-    const section = document.getElementById(id);
-    if (section) {
-      window.scrollTo({
-        top: section.offsetTop - 50,
-        behavior: "smooth",
-      });
-    }
+export default function Finance() {
+  const reviews = [
+    { name: "John D.", text: "Great experience, fast transactions!" },
+    { name: "Sarah W.", text: "Very Fast and Reliable." },
+    { name: "Mike L.", text: "Very easy to use and secure." },
+    { name: "Anna P.", text: "Customer support was fantastic." },
+    { name: "David S.", text: "I’m saving money with every trade!" },
+    { name: "Emily R.", text: "Clean interface and super intuitive." },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const containerRef = useRef(null);
+
+  // Auto-slide every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % reviews.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [reviews.length]);
+
+  // Determine cards to show based on screen width
+  const getCardsToShow = () => {
+    if (window.innerWidth >= 1024) return 3;
+    if (window.innerWidth >= 768) return 2;
+    return 1;
   };
+
+  const cardsToShow = getCardsToShow();
+
+  // Build visible reviews (wrap around)
+  const visibleReviews = [];
+  for (let i = 0; i < reviews.length; i++) {
+    visibleReviews.push(reviews[i]);
+  }
+
+  const translateX = -(currentIndex * (100 / cardsToShow));
+
   return (
-    <section className="financial-banner">
-      <div className="banner-content" data-aos="fade-right">
-        <h1 className="banner-heading">Who We Are: Your Trusted Trading Partner</h1>
-        <p className="banner-text">
-        At GeniSwap , we are revolutionizing how you unlock value from gift cards and crypto. 
-        Our mission is simple: make trading fast, safe, and fair. Whether it’s a $50 iTunes card you 
-        don’t need or a crypto stash you want to flip, we have got you covered. With cutting-edge security, 
-        good market rates, and 24/7 support, we are here to turn your assets into what you 
-        want effortlessly. Trade with confidence, choose GeniSwap Easy Trade today!</p>
-        <button className="banner-button" onClick={() => window.open("https://wa.me/2347025724225", "_blank")}>Start Trading</button>
+    <section className="testimonials">
+      <h2>What Our Users Say</h2>
+      <div className="carousel-wrapper">
+        <div
+          className="carousel-container"
+          style={{ transform: `translateX(${translateX}%)` }}
+          ref={containerRef}
+        >
+          {visibleReviews.concat(visibleReviews).map((r, idx) => (
+            <div
+              className="review"
+              key={idx}
+              style={{ flex: `0 0 ${100 / cardsToShow}%` }}
+            >
+              <p>"{r.text}"</p>
+              <h4>- {r.name}</h4>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
-};
-
-export default Finance;
+}

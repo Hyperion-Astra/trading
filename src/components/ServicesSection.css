@@ -1,91 +1,136 @@
-.services-section {
-  overflow-x: hidden;
+/* src/components/ExchangeForm.css */
+.exchange {
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #f5f7fa, #eef1f7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.services-section {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 60px 20px;
+.exchange form {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 400px;
+}
+
+.exchange h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1e1e2f;
+  margin-bottom: 1.2rem;
+  text-align: center;
+}
+
+.exchange select,
+.exchange input {
+  margin: 10px 0;
+  padding: 12px 14px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.exchange select:focus,
+.exchange input:focus {
+  outline: none;
+  border-color: #6c63ff;
+  box-shadow: 0 0 6px rgba(108, 99, 255, 0.3);
+}
+
+.exchange button {
+  background: #6c63ff;
+  color: white;
+  border: none;
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.exchange button:hover {
+  background: #5848d6;
+}
+
+.exchange p {
+  margin-top: 1.5rem;
+  font-weight: 600;
+  background: #f0f4ff;
+  border: 1px solid #d9e0ff;
+  border-radius: 10px;
+  padding: 12px;
+  color: #222;
+  text-align: center;
+}
+
+/* 📱 Mobile responsiveness */
+@media (max-width: 480px) {
+  .exchange {
+    padding: 30px 15px;
   }
-  
-  .section-title {
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #111c50;
-    margin-bottom: 20px;
+
+  .exchange form {
+    padding: 1.5rem;
+    max-width: 100%;
+    border-radius: 12px;
   }
-  
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 30px;
+
+  .exchange h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
   }
-  
-  .service-card {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+
+  .exchange select,
+  .exchange input {
+    font-size: 0.95rem;
+    padding: 10px 12px;
   }
-  
-  .service-card h3 {
-    font-size: 18px;
-    font-weight: bold;
-    color: #000;
-    margin-bottom: 10px;
+
+  .exchange button {
+    font-size: 0.95rem;
+    padding: 10px;
   }
-  
-  .service-card p {
-    font-size: 14px;
-    color: #333;
-    line-height: 1.5;
-    margin-bottom: 10px;
+
+  .exchange p {
+    font-size: 0.9rem;
+    padding: 10px;
   }
-  
-  .more-info-text {
-    font-size: 14px;
-    color: #444;
-    margin-bottom: 10px;
+}
+
+/* 📱 Slightly larger tablets (landscape phones, ~600px) */
+@media (max-width: 768px) {
+  .exchange {
+    padding: 40px 20px;
   }
-  
-  .more-info-btn {
-    background-color: #12291B;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
+
+  .exchange h2 {
+    font-size: 1.4rem;
   }
-  
-  .more-info-btn:hover {
-    background-color: #1a3d27;
+}
+@media (max-width: 480px) {
+  .exchange {
+    margin: 1rem;
+    padding: 1rem;
   }
-  @media (max-width: 768px) {
-    .services-grid {
-      grid-template-columns: 1fr; /* Stack items in one column */
-      gap: 20px; /* Reduce gap for better spacing */
-    }
+
+  .exchange h2 {
+    font-size: 1.5rem;
   }
-  @media (max-width: 768px) {
-    .section-title {
-      font-size: 14px; /* Slightly smaller */
-      text-align: center;
-    }
-  
-    .service-card h3 {
-      font-size: 16px;
-    }
-  
-    .service-card p {
-      font-size: 13px;
-    }
-  
-    .more-info-btn {
-      width: 100%; /* Make buttons full-width for better tapping */
-    }
+
+  .exchange select,
+  .exchange input,
+  .exchange button {
+    font-size: 0.95rem;
+    padding: 0.65rem;
   }
-    
-  
+}

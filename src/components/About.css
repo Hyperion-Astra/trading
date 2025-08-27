@@ -1,66 +1,175 @@
-body, html {
-  overflow-x: hidden;
-  width: 100%;
+/* ABOUT (Market Prices) */
+.market {
+  min-height: 70vh; /* occupies most of viewport */
+  padding: 4rem 2rem;
+  background: #0a0f1f;
+  color: #f1f1f1;
+  text-align: center;
 }
 
-.about-section {
-    display: flex;
-    justify-content: space-around;
-    padding: 50px;
-    margin: 0 auto;
-    max-width: 1200px;
-    border-radius: 10px;
+.market h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
+  color: #74b9ff;
+}
+
+/* Loading text */
+.loading {
+  font-size: 1.2rem;
+  color: #bbb;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+/* Table */
+.market-table {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background: rgba(20, 25, 40, 0.9);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(116, 185, 255, 0.1);
+}
+
+.market-table th,
+.market-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.market-table th {
+  text-align: left;
+  color: #74b9ff;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.market-table td {
+  font-size: 1.1rem;
+  color: #f1f1f1;
+}
+
+/* Row hover glow */
+.market-table tr:hover {
+  background: rgba(116, 185, 255, 0.05);
+  box-shadow: inset 0 0 12px rgba(116, 185, 255, 0.2);
+  transition: 0.3s;
+}
+
+/* Buttons */
+.exchange-btn {
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #0984e3, #6c5ce7);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.exchange-btn:hover {
+  background: linear-gradient(135deg, #6c5ce7, #0984e3);
+  box-shadow: 0 0 10px rgba(116, 185, 255, 0.6);
+  transform: scale(1.05);
+}
+
+/* Fade-in for rows */
+.fade-in {
+  opacity: 0;
+  transform: translateY(15px);
+  animation: fadeUp 0.6s ease forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .about-content {
-    flex: 1;
-    margin-right: 100px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .market-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
   }
-  
-  .about-content h2 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    max-width: 600px;
+
+  .market-table th,
+  .market-table td {
+    padding: 0.8rem;
+    font-size: 0.9rem;
   }
-  
-  .about-content p {
-    font-size: 16px;
-    line-height: 1.5;
+
+  .exchange-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
   }
-  
-  .about-image {
-    flex: 1;
-    max-width: 50%;
-  }
-  
-  .about-image img {
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-  }
-  @media (max-width: 768px) {
-    .about-section {
-      flex-direction: column; /* Stack elements */
-      text-align: center;
-      padding: 30px; /* Reduce padding */
-    }
-  
-    .about-content {
-      margin-right: 0; /* Remove right margin */
-      margin-bottom: 20px; /* Add space between text and image */
-    }
-  
-    .about-image {
-      max-width: 100%; /* Allow full width */
-    }
-  }
-  @media (max-width: 768px) {
-    .about-image img {
-      max-width: 90%;
-      height: auto;
-    }
-  }
-  
-  
-  
+}
+/* Floating Summary Card */
+.discount-summary {
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, rgba(9,132,227,0.15), rgba(108,92,231,0.15));
+  border: 1px solid rgba(116,185,255,0.3);
+  border-radius: 14px;
+  box-shadow: 0 0 20px rgba(116, 185, 255, 0.15);
+  color: #f1f1f1;
+  text-align: center;
+  backdrop-filter: blur(6px);
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.discount-summary h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  color: #74b9ff;
+}
+
+.discount-summary p {
+  font-size: 1rem;
+  color: #dcdcdc;
+}
+
+/* Glow pulse effect */
+.discount-summary strong {
+  color: #00cec9;
+  text-shadow: 0 0 8px rgba(0,206,201,0.8);
+  animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 6px rgba(0,206,201,0.4); }
+  to { text-shadow: 0 0 12px rgba(0,206,201,0.9); }
+}
+/* Crypto icons in table */
+.crypto-name {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 500;
+  color: #f1f1f1;
+}
+
+.crypto-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease;
+}
+
+.crypto-icon:hover {
+  transform: scale(1.15);
+}

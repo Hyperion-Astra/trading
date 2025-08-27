@@ -1,59 +1,51 @@
+// src/components/Main.js
 import React, { useState, useEffect } from "react";
+import useScrollAnimation from "../hooks/useScrollAnimation";
 import "./Main.css";
 
-const Main = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
+export default function Main() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [heroRef, heroVisible] = useScrollAnimation();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-  const scrollToSection = (id) => {
-    const section = document.getElementById(id);
-    if (section) {
-      window.scrollTo({
-        top: section.offsetTop - 50, // For fixed headers
-        behavior: "smooth",
-      });
-    }
-  };
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <div className="hero-container">
-      
-      {/* Overlay for the faded effect */}
-      <div className="hero-overlay"></div>
-      {/* Header */}
-      <header className={`header ${isScrolled ? "scrolled" : ""}`}>
-      <img 
-      src="/geni.png" 
-      alt="GeniSwap Logo" 
-      className="logo" 
-      onClick={() => window.location.reload()} 
-      style={{ cursor: "pointer", height: "100px", width: "auto" }} />
-        <button className="contact-button" onClick={() => window.open("https://wa.me/2347025724225", "_blank")} style={{ cursor: "pointer" }}>Contact us</button>
-      </header>
+    <div>
+      {/* NAVBAR */}
+      <nav className="navbar">
+        <div className="nav-container">
+          <h2 className="logo">ChangeCog</h2>
+          <div className={`nav-links ${isOpen ? "open fade-in" : ""}`}>
+            <a href="#prices">Prices</a>
+            <a href="#contact">Contact</a>
+          </div>
+          <button className="nav-toggle" onClick={toggleMenu}>
+            ☰
+          </button>
+        </div>
+      </nav>
 
-      <div className="hero-content" data-aos="fade-up">
-        <h2 className="hero-title">Turn Your Gift Cards into Cash or Crypto – Instantly!</h2>
-        <p className="hero-text">
-        With just a few clicks, swap your Amazon, Walmart, Google Play or iTunes cards and more for BTC, ETH, 
-        USDT, or Naira securely and at top rates.
-        </p>
-        <button className="explore-button" onClick={() => window.open("https://wa.me/2347025724225", "_blank")} style={{ cursor: "pointer"}}>Start Trading</button>
-      </div>
+      {/* HERO */}
+      <section
+        className={`hero ${heroVisible ? "fade-in-up" : ""}`}
+        id="home"
+        ref={heroRef}
+      >
+        <div className="hero-content">
+          <h1>Experience limitless crypto exchange. <br /> Fast, Secure and Reliable</h1>
+          <p>Buy Bitcoin, Ethereum, and USDT at cheaper rates.</p>
+          <div className="hero-buttons">
+  <button onClick={() => document.getElementById("prices").scrollIntoView({ behavior: "smooth" })} style={{color: "black"}}>
+    View Prices
+  </button>
+
+  <button onClick={() => document.getElementById("prices").scrollIntoView({ behavior: "smooth" })} style={{color: "black"}}>
+    Start Trading
+  </button>
+</div>
+
+        </div>
+      </section>
     </div>
   );
-};
-
-export default Main;
+}
