@@ -73,7 +73,8 @@ function Withdraw() {
   }, [user]);
 
   return (
-    <div className="withdraw-page">
+    <div className="withdraw-wrapper">
+      <div className="withdraw-page">
       <h2>Withdraw Funds</h2>
 
       {/* === Withdrawal Form === */}
@@ -143,6 +144,7 @@ function Withdraw() {
           )}
         </tbody>
       </table>
+    </div>
     </div>
   );
 }

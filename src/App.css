@@ -636,3 +636,82 @@ body {
   from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
 }
+/* Center Withdraw Form */
+.withdraw-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 100px); /* leaves room for header/footer */
+  padding: 2rem 1rem;
+  background: #f9fafb; /* optional subtle background */
+}
+
+.withdraw-wrapper .card {
+  width: 100%;
+  max-width: 420px;
+  margin: auto;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border-radius: 12px;
+  background: #fff;
+}
+
+/* Typography inside the withdraw form */
+.withdraw-wrapper h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.withdraw-wrapper form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.withdraw-wrapper input,
+.withdraw-wrapper select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.withdraw-wrapper button {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb; /* blue accent */
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.withdraw-wrapper button:hover {
+  background: #1e40af;
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .withdraw-wrapper {
+    padding: 1rem;
+  }
+
+  .withdraw-wrapper .card {
+    padding: 1rem;
+    box-shadow: none; /* flatter for mobile */
+  }
+
+  .withdraw-wrapper h3 {
+    font-size: 1.1rem;
+  }
+
+  .withdraw-wrapper input,
+  .withdraw-wrapper select,
+  .withdraw-wrapper button {
+    font-size: 0.9rem;
+    padding: 0.65rem;
+  }
+}

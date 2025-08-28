@@ -1,58 +1,30 @@
+// src/components/dashboard/ExchangeTable.js
 import React, { useState, useEffect } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import "./ExchangeTable.css";
 
-// Define networks and USDT wallets
-const NETWORKS = {
-  SOL: ["SOL COIN"],
-  SOLANA: ["SOL COIN"],
-  USDT: ["TRC20", "BEP20", "ERC20"],
-};
-
-const USDT_WALLETS = {
-  TRC20: "TQYPwybdLCkrtgWhUXGxUd6sxXvUdjHS1E",
-  BEP20: "0x16360c13De54D990EC9C3e74D524cEbd3b5697DC",
-  ERC20: "0x16360c13De54D990EC9C3e74D524cEbd3b5697DC",
-};
-
-export default function ExchangeTable({ cryptos }) {
-  // From/To state
+export default function ExchangeTable({ cryptos, balances = {} }) {
   const [fromCrypto, setFromCrypto] = useState(cryptos[0] || null);
   const [toCrypto, setToCrypto] = useState(cryptos[1] || cryptos[0]);
   const [fromAmount, setFromAmount] = useState(1);
   const [toAmount, setToAmount] = useState(0);
+  const [error, setError] = useState("");
 
-  const [network, setNetwork] = useState(
-    fromCrypto ? (NETWORKS[fromCrypto.symbol?.toUpperCase()] || [])[0] : ""
-  );
-  const [walletAddress, setWalletAddress] = useState(fromCrypto?.wallet || "");
-
-  // Update wallet & network when fromCrypto changes
-  useEffect(() => {
-    if (!fromCrypto) return;
-
-    const availableNetworks = NETWORKS[fromCrypto.symbol?.toUpperCase()] || [];
-    setNetwork(prev => availableNetworks.includes(prev) ? prev : availableNetworks[0] || "");
-
-    if (fromCrypto.symbol === "USDT") {
-      setWalletAddress(USDT_WALLETS[network] || "");
-    } else {
-      setWalletAddress(fromCrypto.wallet || "");
-    }
-
-    setFromAmount(1);
-  }, [fromCrypto, network]);
-
-  // Calculate toAmount whenever fromAmount or crypto changes
+  // Calculate toAmount and check balance
   useEffect(() => {
     if (!fromCrypto || !toCrypto) return;
 
-    // Apply $15 discount to fromCrypto if not USDT
     const fromPrice = fromCrypto.symbol === "USDT" ? fromCrypto.price : fromCrypto.price - 15;
     const usdAmount = fromPrice * fromAmount;
     setToAmount(usdAmount / toCrypto.price);
-  }, [fromAmount, fromCrypto, toCrypto]);
+
+    if (balances[fromCrypto.symbol] < fromAmount) {
+      setError(`Insufficient ${fromCrypto.symbol} balance!`);
+    } else {
+      setError("");
+    }
+  }, [fromAmount, fromCrypto, toCrypto, balances]);
 
   const handleCryptoChange = (type, symbol) => {
     const crypto = cryptos.find(c => c.symbol === symbol);
@@ -60,17 +32,10 @@ export default function ExchangeTable({ cryptos }) {
     else setToCrypto(crypto);
   };
 
-  const handleNetworkChange = (e) => setNetwork(e.target.value);
-
   const swapCryptos = () => {
     setFromCrypto(toCrypto);
     setToCrypto(fromCrypto);
     setFromAmount(toAmount);
-  };
-
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text);
-    alert("Copied to clipboard!");
   };
 
   const handleConfirm = async (e) => {
@@ -79,19 +44,19 @@ export default function ExchangeTable({ cryptos }) {
       alert("You must be logged in to perform an exchange.");
       return;
     }
+    if (error) return;
 
     try {
       await addDoc(collection(db, "exchanges"), {
         crypto: fromCrypto.name,
         symbol: fromCrypto.symbol,
         amount: (fromCrypto.symbol === "USDT" ? fromCrypto.price : fromCrypto.price - 15) * fromAmount,
-        wallet: walletAddress,
-        network,
         userId: auth.currentUser.uid,
         createdAt: serverTimestamp(),
       });
 
       alert("Exchange submitted!");
+      setFromAmount(1);
     } catch (err) {
       console.error("Error saving exchange:", err);
       alert("Failed to save exchange. Please try again.");
@@ -100,12 +65,10 @@ export default function ExchangeTable({ cryptos }) {
 
   if (!cryptos || cryptos.length === 0) return <p>Loading cryptos...</p>;
 
-  const availableNetworks = NETWORKS[fromCrypto.symbol?.toUpperCase()] || [];
-  const showNetworkDropdown = availableNetworks.length > 1;
-
   return (
     <div className="exchange-table-card">
       <h2>Exchange Crypto</h2>
+
       <form onSubmit={handleConfirm}>
         {/* --- FROM --- */}
         <label>
@@ -138,33 +101,9 @@ export default function ExchangeTable({ cryptos }) {
         </label>
         <input type="number" value={toAmount.toFixed(6)} readOnly />
 
-        {showNetworkDropdown && (
-          <label>
-            Network:
-            <select value={network} onChange={handleNetworkChange}>
-              {availableNetworks.map(net => (
-                <option key={net} value={net}>{net}</option>
-              ))}
-            </select>
-          </label>
-        )}
+        {error && <p style={{ color: "red" }}>{error}</p>}
 
-        <div className="payment-info">
-          <div className="address-row">
-            <span className="wallet">{walletAddress}</span>
-            <button type="button" className="copy-btn" onClick={() => copyToClipboard(walletAddress)}>Copy</button>
-          </div>
-
-          <div className="barcode-container">
-            <img
-              src={`/barcodes/${fromCrypto.symbol.toUpperCase()}${fromCrypto.symbol === "USDT" ? `_${network}` : ""}.png`}
-              alt={`${fromCrypto.name} barcode`}
-              onError={(e) => { e.target.style.display = 'none'; }}
-            />
-          </div>
-        </div>
-
-        <button type="submit" className="confirm-btn">Confirm Exchange</button>
+        <button type="submit" className="confirm-btn" disabled={!!error}>Confirm Exchange</button>
       </form>
     </div>
   );

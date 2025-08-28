@@ -33,7 +33,7 @@ export default function Main() {
       >
         <div className="hero-content">
           <h1>Experience limitless crypto exchange. <br /> Fast, Secure and Reliable</h1>
-          <p>Buy Bitcoin, Ethereum, and USDT at cheaper rates.</p>
+          <p>Seamlessly purchase and manage crypto</p>
           <div className="hero-buttons">
   <button onClick={() => document.getElementById("prices").scrollIntoView({ behavior: "smooth" })} style={{color: "black"}}>
     View Prices

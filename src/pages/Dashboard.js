@@ -6,6 +6,7 @@ import ProfileCard from "../components/dashboard/ProfileCard";
 import WithdrawForm from "../components/dashboard/WithdrawForm";
 import WithdrawList from "../components/dashboard/WithdrawList";
 import ExchangeTable from "../components/dashboard/ExchangeTable";
+import DepositPage from "./DepositPage"; // ⬅️ NEW IMPORT
 
 import { db, auth } from "../firebase";
 import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
@@ -15,6 +16,7 @@ const Dashboard = () => {
   const [activePage, setActivePage] = useState("dashboard");
   const [cryptos, setCryptos] = useState([]);
   const [exchanges, setExchanges] = useState([]);
+  const [balances, setBalances] = useState({}); // Added to store user balances
 
   // Fetch crypto prices
   useEffect(() => {
@@ -25,43 +27,21 @@ const Dashboard = () => {
         );
         const data = await res.json();
 
-        setCryptos([
-          {
-            id: "btc",
-            name: "Bitcoin",
-            price: data.bitcoin.usd - 15,
-            symbol: "BTC",
-            wallet: "bc1qaha0cqkmxcl2kvkrhe4dtnj7ykgk8tch6tc62y",
-          },
-          {
-            id: "eth",
-            name: "Ethereum",
-            price: data.ethereum.usd - 15,
-            symbol: "ETH",
-            wallet: "0x16360c13De54D990EC9C3e74D524cEbd3b5697DC",
-          },
-          {
-            id: "bnb",
-            name: "BNB",
-            price: data.binancecoin.usd - 15,
-            symbol: "BNB",
-            wallet: "0x16360c13De54D990EC9C3e74D524cEbd3b5697DC",
-          },
-          {
-            id: "sol",
-            name: "Solana",
-            price: data.solana.usd - 15,
-            symbol: "SOL",
-            wallet: "42EqkNVGnYUW3mBz1CRXLSDrwLfRW3Ra578gjActqfUs",
-          },
-          {
-            id: "usdt",
-            name: "USDT",
-            price: data.tether.usd,
-            symbol: "USDT",
-            wallet: "TQYPwybdLCkrtgWhUXGxUd6sxXvUdjHS1E",
-          },
-        ]);
+        const cryptoData = [
+          { id: "btc", name: "Bitcoin", price: data.bitcoin.usd - 15, symbol: "BTC", wallet: "bc1qaha0cqkmxcl2kvkrhe4dtnj7ykgk8tch6tc62y" },
+          { id: "eth", name: "Ethereum", price: data.ethereum.usd - 15, symbol: "ETH", wallet: "0x16360c13De54D990EC9C3e74D524cEbd3b5697DC" },
+          { id: "bnb", name: "BNB", price: data.binancecoin.usd - 15, symbol: "BNB", wallet: "0x16360c13De54D990EC9C3e74D524cEbd3b5697DC" },
+          { id: "sol", name: "Solana", price: data.solana.usd - 15, symbol: "SOL", wallet: "42EqkNVGnYUW3mBz1CRXLSDrwLfRW3Ra578gjActqfUs" },
+          { id: "usdt", name: "USDT", price: data.tether.usd, symbol: "USDT", wallet: "TQYPwybdLCkrtgWhUXGxUd6sxXvUdjHS1E" },
+        ];
+
+        setCryptos(cryptoData);
+
+        // Initialize balances to 0 for each crypto if not already set
+        const initialBalances = {};
+        cryptoData.forEach(c => initialBalances[c.symbol] = 0);
+        setBalances(initialBalances);
+
       } catch (error) {
         console.error("Error fetching crypto prices:", error);
       }
@@ -80,13 +60,22 @@ const Dashboard = () => {
           orderBy("createdAt", "desc")
         );
         const snapshot = await getDocs(q);
-        setExchanges(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        const fetchedExchanges = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setExchanges(fetchedExchanges);
+
+        // Update balances based on past exchanges
+        const updatedBalances = { ...balances };
+        fetchedExchanges.forEach(ex => {
+          updatedBalances[ex.symbol] = (updatedBalances[ex.symbol] || 0) - ex.amount;
+        });
+        setBalances(updatedBalances);
+
       } catch (err) {
         console.error("Error fetching exchanges:", err);
       }
     };
     fetchExchanges();
-  }, []);
+  }, [cryptos]);
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
@@ -106,8 +95,8 @@ const Dashboard = () => {
         <main className="dashboard-content" style={{ padding: "2rem" }}>
           {activePage === "dashboard" && (
             <>
-              <WalletBalance />
               <ProfileCard />
+              <WalletBalance balances={balances} />
               <WithdrawForm />
               <WithdrawList />
 
@@ -136,15 +125,7 @@ const Dashboard = () => {
                               <span style={{ fontFamily: "monospace" }}>{ex.wallet}</span>
                               <button
                                 onClick={() => copyToClipboard(ex.wallet)}
-                                style={{
-                                  padding: "0.2rem 0.5rem",
-                                  fontSize: "0.8rem",
-                                  cursor: "pointer",
-                                  borderRadius: "6px",
-                                  border: "none",
-                                  background: "#1e293b",
-                                  color: "#fff"
-                                }}
+                                style={{ padding: "0.2rem 0.5rem", fontSize: "0.8rem", cursor: "pointer", borderRadius: "6px", border: "none", background: "#1e293b", color: "#fff" }}
                               >
                                 Copy
                               </button>
@@ -156,15 +137,7 @@ const Dashboard = () => {
                               {ex.contract && (
                                 <button
                                   onClick={() => copyToClipboard(ex.contract)}
-                                  style={{
-                                    padding: "0.2rem 0.5rem",
-                                    fontSize: "0.8rem",
-                                    cursor: "pointer",
-                                    borderRadius: "6px",
-                                    border: "none",
-                                    background: "#1e293b",
-                                    color: "#fff"
-                                  }}
+                                  style={{ padding: "0.2rem 0.5rem", fontSize: "0.8rem", cursor: "pointer", borderRadius: "6px", border: "none", background: "#1e293b", color: "#fff" }}
                                 >
                                   Copy
                                 </button>
@@ -184,7 +157,7 @@ const Dashboard = () => {
           {activePage === "exchange" && (
             <>
               {cryptos.length > 0 ? (
-                <ExchangeTable cryptos={cryptos} />
+                <ExchangeTable cryptos={cryptos} balances={balances} />
               ) : (
                 <p>Loading cryptos...</p>
               )}
@@ -196,6 +169,11 @@ const Dashboard = () => {
               <WithdrawForm />
               <WithdrawList />
             </>
+          )}
+
+          {/* ⬇️ NEW DEPOSIT PAGE */}
+          {activePage === "deposit" && (
+            <DepositPage balances={balances} cryptos={cryptos} />
           )}
         </main>
       </div>

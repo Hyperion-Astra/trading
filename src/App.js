@@ -24,6 +24,7 @@ import PublicRoute from "./components/PublicRoute";
 import { doc, getDoc } from "firebase/firestore";
 import { Toaster } from "react-hot-toast";
 import VerifyEmail from "./pages/VerifyEmail";
+import DepositPage from "./pages/DepositPage";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -99,6 +100,12 @@ function App() {
             </PublicRoute>
           }
         />
+        <Route path="/deposit" element={
+          <PublicRoute>
+            <DepositPage />
+          </PublicRoute>
+        } />
+
         <Route 
         path="/verify-email" 
         element={

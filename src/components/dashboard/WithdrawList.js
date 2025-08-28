@@ -25,18 +25,19 @@ function WithdrawList() {
   }, [user]);
 
   return (
-    <div className="card" style={{ gridColumn: "1 / -1" }}>
-      <h3>My Withdrawal Requests</h3>
+    <div className="card" style={{ gridColumn: "1 / -1", padding: "1.5rem" }}>
+      <h3 style={{ marginBottom: "1rem" }}>My Withdrawal Requests</h3>
 
       {withdrawals.length === 0 ? (
         <p className="text-muted" style={{ textAlign: "center" }}>
           No withdrawal requests yet.
         </p>
       ) : (
-        <div className="table-container">
-          <table className="table">
+        <div className="table-container" style={{ overflowX: "auto" }}>
+          <table className="table" style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr>
+                <th>Crypto</th>
                 <th>Amount (USD)</th>
                 <th>Wallet</th>
                 <th>Status</th>
@@ -45,11 +46,25 @@ function WithdrawList() {
             </thead>
             <tbody>
               {withdrawals.map((wd) => (
-                <tr key={wd.id}>
+                <tr key={wd.id} style={{ textAlign: "center", borderBottom: "1px solid #eee" }}>
+                  <td>{wd.crypto || "-"}</td>
                   <td>${wd.amount}</td>
                   <td>{wd.walletAddress}</td>
                   <td>
-                    <span className={`status status-${wd.status}`}>
+                    <span
+                      className={`status status-${wd.status}`}
+                      style={{
+                        padding: "0.25rem 0.5rem",
+                        borderRadius: "0.25rem",
+                        color: "#fff",
+                        backgroundColor:
+                          wd.status === "pending"
+                            ? "#f0ad4e"
+                            : wd.status === "completed"
+                            ? "#5cb85c"
+                            : "#d9534f",
+                      }}
+                    >
                       {wd.status}
                     </span>
                   </td>

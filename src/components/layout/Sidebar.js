@@ -7,7 +7,6 @@ function Sidebar({ role, setActivePage }) {
   const handleLogout = () => signOut(auth);
 
   return (
-    // ⬇️ renamed from "sidebar" to "sidebar-panel"
     <aside className="sidebar-panel">
       <div className="sidebar-header">
         <h2>ChangeCog</h2>
@@ -20,6 +19,9 @@ function Sidebar({ role, setActivePage }) {
           </li>
           <li onClick={() => setActivePage("exchange")} style={{ cursor: "pointer" }}>
             💱 Exchange
+          </li>
+          <li onClick={() => setActivePage("deposit")} style={{ cursor: "pointer" }}>
+            📥 Deposit
           </li>
           <li onClick={() => setActivePage("withdraw")} style={{ cursor: "pointer" }}>
             💸 Withdraw
